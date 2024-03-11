@@ -69,7 +69,7 @@ if (isset($_SESSION['admin_id']) &&
             <li class="list-group-item">Parent phone number: <?=$student['parent_phone_number']?></li>
           </ul>
           <div class="card-body">
-            <a href="student.php" class="card-link">Go Back</a>
+            <a href="user.php" class="card-link">Go Back</a>
           </div>
         </div>
      </div>

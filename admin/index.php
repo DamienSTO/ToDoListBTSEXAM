@@ -28,39 +28,16 @@ if (isset($_SESSION['admin_id']) &&
                <a href="teacher.php" 
                   class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-user-md fs-1" aria-hidden="true"></i><br>
-                  Teachers
+                  Createur de Groupe
                </a> 
-               <a href="student.php" class="col btn btn-dark m-2 py-3">
+               <a href="user.php" class="col btn btn-dark m-2 py-3">
                  <i class="fa fa-graduation-cap fs-1" aria-hidden="true"></i><br>
-                  Students
+                  Utilisateur
                </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-pencil-square fs-1" aria-hidden="true"></i><br>
-                  Registrar Office
-               </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-cubes fs-1" aria-hidden="true"></i><br>
-                  Class
-               </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-columns fs-1" aria-hidden="true"></i><br>
-                  Section
-               </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-calendar fs-1" aria-hidden="true"></i><br>
-                  Schedule
-               </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-book fs-1" aria-hidden="true"></i><br>
-                  Course
-               </a> 
-               <a href="" class="col btn btn-dark m-2 py-3">
-                 <i class="fa fa-envelope fs-1" aria-hidden="true"></i><br>
-                  Message
-               </a> 
+
                <a href="" class="col btn btn-primary m-2 py-3 col-5">
                  <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
-                  Settings
+                  Parametres
                </a> 
                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5">
                  <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>

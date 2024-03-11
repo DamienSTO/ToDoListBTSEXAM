@@ -9,7 +9,6 @@ if (isset($_SESSION['admin_id']) &&
        $search_key = $_GET['searchKey'];
        include "../DB_connection.php";
        include "data/user.php";
-       include "data/grade.php";
        $students = searchStudents($search_key, $conn);
  ?>
 <!DOCTYPE html>
@@ -67,10 +66,7 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">ID</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Grade</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -80,27 +76,11 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$student['student_id']?></td>
-                    <td>
-                      <a href="student-view.php?student_id=<?=$student['student_id']?>">
-                        <?=$student['fname']?>
-                      </a>
-                    </td>
-                    <td><?=$student['lname']?></td>
                     <td><?=$student['username']?></td>
                     <td>
-                      <?php 
-                           $grade = $student['grade'];
-                           $g_temp = getGradeById($grade, $conn);
-                           if ($g_temp != 0) {
-                              echo $g_temp['grade_code'].'-'.
-                                     $g_temp['grade'];
-                            }
-                        ?>
-                    </td>
-                    <td>
-                        <a href="student-edit.php?student_id=<?=$student['student_id']?>"
+                        <a href="user-edit.php?student_id=<?=$student['student_id']?>"
                            class="btn btn-warning">Edit</a>
-                        <a href="student-delete.php?student_id=<?=$student['student_id']?>"
+                        <a href="user-delete.php?student_id=<?=$student['student_id']?>"
                            class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
@@ -112,7 +92,7 @@ if (isset($_SESSION['admin_id']) &&
              <div class="alert alert-info .w-450 m-5" 
                   role="alert">
                     No Results Found
-                 <a href="student.php"
+                 <a href="user.php"
                    class="btn btn-dark">Go Back</a>
               </div>
          <?php } ?>
@@ -129,7 +109,7 @@ if (isset($_SESSION['admin_id']) &&
 </html>
 <?php 
     }else {
-      header("Location: student.php");
+      header("Location: user.php");
       exit;
     } 
 

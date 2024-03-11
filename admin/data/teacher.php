@@ -29,6 +29,19 @@ function getAllTeachers($conn){
    }
 }
 
+function searchTeachers($search_key, $conn){
+  $sql = "SELECT * FROM teachers
+          WHERE username LIKE ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->execute(["%$search_key%"]);
+
+  if ($stmt->rowCount() >= 1) {
+    $teachers = $stmt->fetchAll();
+    return $teachers;
+  }else {
+   return 0;
+  }
+}
 // Check if the username Unique
 function unameIsUnique($uname, $conn, $teacher_id=0){
    $sql = "SELECT username, teacher_id FROM teachers

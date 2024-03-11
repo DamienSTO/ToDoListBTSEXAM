@@ -7,19 +7,13 @@ if (isset($_SESSION['admin_id']) &&
     if ($_SESSION['role'] == 'Admin') {
       
        include "../DB_connection.php";
-       include "data/subject.php";
-       include "data/grade.php";
-       include "data/student.php";
-       include "data/section.php";
-       $subjects = getAllSubjects($conn);
-       $grades = getAllGrades($conn);
-       $sections = getAllsections($conn);
+       include "data/user.php";
        
        $student_id = $_GET['student_id'];
        $student = getStudentById($student_id, $conn);
 
        if ($student == 0) {
-         header("Location: student.php");
+         header("Location: user.php");
          exit;
        }
 
@@ -30,7 +24,7 @@ if (isset($_SESSION['admin_id']) &&
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Edit Student</title>
+  <title>Admin - Edit student</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../logo.png">
@@ -42,13 +36,13 @@ if (isset($_SESSION['admin_id']) &&
         include "inc/navbar.php";
      ?>
      <div class="container mt-5">
-        <a href="student.php"
+        <a href="user.php"
            class="btn btn-dark">Go Back</a>
 
         <form method="post"
               class="shadow p-3 mt-5 form-w" 
               action="req/student-edit.php">
-        <h3>Edit Student Info</h3><hr>
+        <h3>Edit student</h3><hr>
         <?php if (isset($_GET['error'])) { ?>
           <div class="alert alert-danger" role="alert">
            <?=$_GET['error']?>
@@ -59,54 +53,6 @@ if (isset($_SESSION['admin_id']) &&
            <?=$_GET['success']?>
           </div>
         <?php } ?>
-        <div class="mb-3">
-          <label class="form-label">First name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['fname']?>" 
-                 name="fname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Last name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['lname']?>"
-                 name="lname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Address</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['address']?>"
-                 name="address">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email address</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['email_address']?>"
-                 name="email_address">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Date of birth</label>
-          <input type="date" 
-                 class="form-control"
-                 value="<?=$student['date_of_birth']?>"
-                 name="date_of_birth">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Gender</label><br>
-          <input type="radio"
-                 value="Male"
-                 <?php if($student['gender'] == 'Male') echo 'checked';  ?> 
-                 name="gender"> Male
-                 &nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio"
-                 value="Female"
-                 <?php if($student['gender'] == 'Female') echo 'checked';  ?> 
-                 name="gender"> Female
-        </div>
-
         <div class="mb-3">
           <label class="form-label">Username</label>
           <input type="text" 
@@ -120,79 +66,6 @@ if (isset($_SESSION['admin_id']) &&
                 hidden>
 
         <div class="mb-3">
-          <label class="form-label">Grade</label>
-          <div class="row row-cols-5">
-            <?php 
-            $grade_ids = str_split(trim($student['grade']));
-            foreach ($grades as $grade){ 
-              $checked =0;
-              foreach ($grade_ids as $grade_id ) {
-                if ($grade_id == $grade['grade_id']) {
-                   $checked =1;
-                }
-              }
-            ?>
-            <div class="col">
-              <input type="radio"
-                     name="grade"
-                     <?php if($checked) echo "checked"; ?>
-                     value="<?=$grade['grade_id']?>">
-                     <?=$grade['grade_code']?>-<?=$grade['grade']?>
-            </div>
-            <?php } ?>
-             
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Section</label>
-          <div class="row row-cols-5">
-            <?php 
-            $section_ids = str_split(trim($student['section']));
-            foreach ($sections as $section){ 
-              $checked =0;
-              foreach ($section_ids as $section_id ) {
-                if ($section_id == $section['section_id']) {
-                   $checked =1;
-                }
-              }
-            ?>
-            <div class="col">
-              <input type="radio"
-                     name="section"
-                     <?php if($checked) echo "checked"; ?>
-                     value="<?=$section['section_id']?>">
-                     <?=$section['section']?>
-            </div>
-            <?php } ?>
-             
-          </div>
-        </div>
-        <br><hr>
-
-        <div class="mb-3">
-          <label class="form-label">Parent first name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['parent_fname']?>"
-                 name="parent_fname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parent last name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['parent_lname']?>"
-                 name="parent_lname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parent phone number</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$student['parent_phone_number']?>"
-                 name="parent_phone_number">
-        </div>
-
-        
 
       <button type="submit" 
               class="btn btn-primary">
@@ -256,7 +129,7 @@ if (isset($_SESSION['admin_id']) &&
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>  
     <script>
         $(document).ready(function(){
-             $("#navLinks li:nth-child(3) a").addClass('active');
+             $("#navLinks li:nth-child(2) a").addClass('active');
         });
 
         function makePass(length) {

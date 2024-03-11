@@ -6,7 +6,7 @@ if(isset($_POST['title'])){
     $title = $_POST['title'];
 
     if(empty($title)){
-        header("Location: ../Student/index.php?mess=error");
+        header("Location: ../CreeGroupe/index.php?mess=error");
     }else {
         $stmt = $conn->prepare("INSERT INTO todos(title) VALUE(?)");
         $res = $stmt->execute([$title]);
@@ -20,5 +20,5 @@ if(isset($_POST['title'])){
         exit();
     }
 }else {
-    header("Location: ../Student/index.php?mess=error");
+    header("Location: ../CreeGroupe/index.php?mess=error");
 }

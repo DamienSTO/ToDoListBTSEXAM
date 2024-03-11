@@ -7,8 +7,11 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="icon" href="logo.png">
-
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
 </head>
+
 <body class="body-home">
 	<div class="black-fill"><br /><br />
 		<div class="container">
@@ -27,7 +30,7 @@
 		          <a class="nav-link active" aria-current="page" href="#">Home</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#about">A propos</a>
+		          <a class="nav-link" href="#about">Enregistrer vous !</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" href="#contact">Contacter</a>
@@ -49,22 +52,63 @@
 			<p>
 			</p>
 		</section>
-		<section id="about"
-				class="d-flex justify-content-center align-items-center flex-column">
-			<div class="carte-1">
-			  <div class="row g-0">
-			    <div class="col-md-4">
-			      <img src="logo.png" class="img-fluid rounded-start" >
-			    </div>
-			    <div class="col-md-8">
-			      <div class="card-body">
-			        <h5 class="card-title">A propos</h5>
-			        <p class="card-text"> pas encore fait</p>
-			        <p class="card-text"><small class="text-muted"></small></p>
-			      </div>
-			    </div>
-			  </div>
-			</div>
+		<section id="about" class="d-flex justify-content-center align-items-center flex-column">
+			<form class="login" method="post">
+				<div class="text-center">
+					<img src="logo.png" width="100">
+				</div>
+				<h3>Enregistre toi !</h3>
+				<?php if (isset($_GET['error'])) { ?>
+					<div class="alert alert-danger" role="alert">
+						<?=$_GET['error'] ?>
+					</div>
+				<?php } ?>
+
+				<div class="mb-3">
+					<label class="form-label">Nom d'utilisateur</label>
+					<input type="text" class="form-control" name="uname">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Mot de passe</label>
+					<input type="password" class="form-control" name="pass">
+				</div>
+
+				<div class="mb-3">
+					<label class="form-label">Crée le compte en tant que :</label>
+					<select class="form-control" name="role">
+						<option value="3">Invité</option>
+						<option value="2">Créateur de tâches</option>
+					</select>
+				</div>
+
+				<button type="submit" class="btn btn-primary">S'enregistrer</button>
+				<a href="index.php" class="text-decoration-none">Home</a>
+			</form>
+
+			<?php
+			include_once __DIR__ . '/DB_connection.php'; // Assurez-vous que le chemin est correct
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+				$username = $_POST['uname'];
+				$password = $_POST['pass'];
+				$role = $_POST['role'];
+
+				// Hasher le mot de passe
+				$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+				if ($role == 2) {
+					// Si le rôle est 2 (enseignant), insérer dans la table teachers
+					$stmt = $conn->prepare("INSERT INTO teachers (username, password) VALUES (?, ?)");
+				} else {
+					// Sinon, insérer dans la table students
+					$stmt = $conn->prepare("INSERT INTO students (username, password) VALUES (?, ?)");
+				}
+				$stmt->execute([$username, $hashed_password]);
+
+				// Rediriger l'utilisateur vers une page de confirmation ou une autre page appropriée
+				echo '<script>alert("Enregistrement réussi !");</script>';
+			}
+			?>
 		</section>
 		<section id="contact"
 				class="d-flex justify-content-center align-items-center flex-column">
@@ -92,5 +136,20 @@
 
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+         const pass_field = document.querySelector('.pass-key');
+         const showBtn = document.querySelector('.show');
+         showBtn.addEventListener('click', function(){
+          if(pass_field.type === "password"){
+            pass_field.type = "text";
+            showBtn.textContent = "HIDE";
+            showBtn.style.color = "#3498db";
+          }else{
+            pass_field.type = "password";
+            showBtn.textContent = "SHOW";
+            showBtn.style.color = "#222";
+          }
+         });
+      </script>
 </body>
 </html>

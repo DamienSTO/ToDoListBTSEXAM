@@ -9,8 +9,6 @@ if (isset($_SESSION['admin_id']) &&
        $search_key = $_GET['searchKey'];
        include "../DB_connection.php";
        include "data/teacher.php";
-       include "data/subject.php";
-       include "data/grade.php";
        $teachers = searchTeachers($search_key, $conn);
  ?>
 <!DOCTYPE html>
@@ -71,11 +69,7 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">ID</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
                     <th scope="col">Username</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Grade</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -86,34 +80,7 @@ if (isset($_SESSION['admin_id']) &&
                     <th scope="row"><?=$i?></th>
                     <td><?=$teacher['teacher_id']?></td>
                     <td><a href="teacher-view.php?teacher_id=<?=$teacher['teacher_id']?>">
-                         <?=$teacher['fname']?></a></td>
-                    <td><?=$teacher['lname']?></td>
                     <td><?=$teacher['username']?></td>
-                    <td>
-                       <?php 
-                           $s = '';
-                           $subjects = str_split(trim($teacher['subjects']));
-                           foreach ($subjects as $subject) {
-                              $s_temp = getSubjectById($subject, $conn);
-                              if ($s_temp != 0) 
-                                $s .=$s_temp['subject_code'].', ';
-                           }
-                           echo $s;
-                        ?>
-                    </td>
-                    <td>
-                      <?php 
-                           $g = '';
-                           $grades = str_split(trim($teacher['grades']));
-                           foreach ($grades as $grade) {
-                              $g_temp = getGradeById($grade, $conn);
-                              if ($g_temp != 0) 
-                                $g .=$g_temp['grade_code'].'-'.
-                                     $g_temp['grade'].', ';
-                           }
-                           echo $g;
-                        ?>
-                    </td>
                     <td>
                         <a href="teacher-edit.php?teacher_id=<?=$teacher['teacher_id']?>"
                            class="btn btn-warning">Edit</a>

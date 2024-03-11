@@ -48,7 +48,7 @@ if (isset($_SESSION['admin_id']) &&
         include "inc/navbar.php";
      ?>
      <div class="container mt-5">
-        <a href="student.php"
+        <a href="user.php"
            class="btn btn-dark">Go Back</a>
 
         <form method="post"

@@ -15,7 +15,7 @@ if (isset($_SESSION['admin_id']) &&
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin - Teachers</title>
+    <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" href="../logo.png">
@@ -29,7 +29,7 @@ if (isset($_SESSION['admin_id']) &&
      ?>
      <div class="container mt-5">
         <a href="teacher-add.php"
-           class="btn btn-dark">Add New Teacher</a>
+           class="btn btn-dark">Ajouter un Createur de Groupe</a>
 
            <form action="teacher-search.php" 
                  class="mt-3 n-table"
@@ -66,11 +66,7 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">ID</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Subject</th>
-                    <th scope="col">Grade</th>
+                    <th scope="col">Nom d'utilisateur</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -80,35 +76,7 @@ if (isset($_SESSION['admin_id']) &&
                   <tr>
                     <th scope="row"><?=$i?></th>
                     <td><?=$teacher['teacher_id']?></td>
-                    <td><a href="teacher-view.php?teacher_id=<?=$teacher['teacher_id']?>">
-                         <?=$teacher['fname']?></a></td>
-                    <td><?=$teacher['lname']?></td>
                     <td><?=$teacher['username']?></td>
-                    <td>
-                       <?php 
-                           $s = '';
-                           $subjects = str_split(trim($teacher['subjects']));
-                           foreach ($subjects as $subject) {
-                              $s_temp = getSubjectById($subject, $conn);
-                              if ($s_temp != 0) 
-                                $s .=$s_temp['subject_code'].', ';
-                           }
-                           echo $s;
-                        ?>
-                    </td>
-                    <td>
-                      <?php 
-                           $g = '';
-                           $grades = str_split(trim($teacher['grades']));
-                           foreach ($grades as $grade) {
-                              $g_temp = getGradeById($grade, $conn);
-                              if ($g_temp != 0) 
-                                $g .=$g_temp['grade_code'].'-'.
-                                     $g_temp['grade'].', ';
-                           }
-                           echo $g;
-                        ?>
-                    </td>
                     <td>
                         <a href="teacher-edit.php?teacher_id=<?=$teacher['teacher_id']?>"
                            class="btn btn-warning">Edit</a>

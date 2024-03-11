@@ -6,22 +6,22 @@ if (isset($_SESSION['admin_id']) &&
 
   if ($_SESSION['role'] == 'Admin') {
      include "../DB_connection.php";
-     include "data/student.php";
+     include "data/user.php";
 
      $id = $_GET['student_id'];
      if (removeStudent($id, $conn)) {
       $sm = "Successfully deleted!";
-        header("Location: student.php?success=$sm");
+        header("Location: user.php?success=$sm");
         exit;
      }else {
         $em = "Unknown error occurred";
-        header("Location: student.php?error=$em");
+        header("Location: user.php?error=$em");
         exit;
      }
 
 
   }else {
-    header("Location: student.php");
+    header("Location: user.php");
     exit;
   } 
 }else {

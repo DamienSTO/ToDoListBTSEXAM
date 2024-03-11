@@ -1,9 +1,9 @@
 <?php 
 session_start();
-if (isset($_SESSION['student_id']) && 
+if (isset($_SESSION['teacher_id']) && 
     isset($_SESSION['role'])) {
 
-    if (!$_SESSION['role'] == 'Student') {
+    if (!$_SESSION['role'] == 'Teacher') {
         header("Location: ../login.php");
         exit;
     }
@@ -42,6 +42,10 @@ $todo_id = $conn->query("SELECT * FROM todos ORDER BY todo_id DESC");
                     <div class="card-body">
                         <form action="endpoint/add.php" method="POST" autocomplete="off">
                             <div class="input-group mb-3">
+                                <input type="text" name="title" class="form-control <?= isset($_GET['mess']) && $_GET['mess'] == 'error' ? 'is-invalid' : '' ?>" placeholder="<?= isset($_GET['mess']) && $_GET['mess'] == 'error' ? 'You must do something! Be Productive!' : 'What do you need to do?' ?>">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
                             </div>
                         </form>
                         
@@ -54,10 +58,29 @@ $todo_id = $conn->query("SELECT * FROM todos ORDER BY todo_id DESC");
                         <div class="list-group">
                             <?php while ($todos = $todo_id->fetch(PDO::FETCH_ASSOC)) { ?>
                                 <div class="list-group-item">
+                                <button id="<?= $todos['todo_id']; ?>" class="remove-to-do">supprimer</button>
                                 <input type="checkbox" class="check-box" data-todo-id="<?php echo $todos['todo_id']; ?>" <?php echo $todos['checked'] ? 'checked' : ''; ?>>
                                 <h2 <?php echo $todos['checked'] ? 'class="checked"' : ''; ?>><?php echo $todos['title']; ?></h2>
                                 <small class="date-finished">Created: <?php echo $todos['date_time']; ?></small>
+                            
                                 </div>
+                                <select id='add_user'>
+                                    <option value="null" disable>ajouter un utilisateur</option>
+                                    <?php
+                                    include_once __DIR__ . '/../DB_connection.php';
+                                    $requete = "SELECT student_id, username FROM students";
+                                    $resultat = $conn->query($requete);
+
+                                    if ($resultat->rowCount() > 0) {
+                                        while ($row = $resultat->fetch(PDO::FETCH_ASSOC)) {
+                                            echo "<option value='" . $row['student_id'] . "'>" . $row['username'] . "</option>";
+                                        }
+                                    }
+
+                                    $conn = null;
+                                    ?>
+                                </select>
+                                <button id="<?= $todos['todo_id']; ?>"  class="add-to-do-user">Confirmer</button>
                             <?php } ?>
                         </div>
                     </div>

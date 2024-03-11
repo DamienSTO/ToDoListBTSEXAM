@@ -15,36 +15,24 @@
              href="index.php">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="teacher.php">Teachers</a>
+          <a class="nav-link" href="teacher.php">Createur de Groupe</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="student.php">Students</a>
+          <a class="nav-link" href="user.php">Utilisateur</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#contact">Registrar-Office</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#contact">Class</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Section</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Schedule</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Course</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="#contact">Message</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#contact">Settings</a>
+          <a class="nav-link" href="#contact">Parametres</a>
         </li>
       </ul>
       <ul class="navbar-nav me-right mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="../logout.php">Logout</a>
+          <a class="nav-link" href="../logout.php">Deconnection</a>
         </li>
       </ul>
   </div>

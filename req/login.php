@@ -58,7 +58,11 @@ if (isset($_POST['uname']) &&
             		}elseif ($role == 'Student') {
             			$id = $user['student_id'] ;
             			$_SESSION['student_id'] = $id;
-            			header("Location: ../student/index.php");
+            			header("Location: ../Student/index.php");
+            		}elseif ($role == 'Teacher') {
+            			$id = $user['teacher_id'] ;
+            			$_SESSION['teacher_id'] = $id;
+            			header("Location: ../CreeGroupe/index.php");
             		}
 
 				    
