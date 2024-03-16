@@ -113,7 +113,7 @@
 		<section id="contact"
 				class="d-flex justify-content-center align-items-center flex-column">
 				<form>
-					<h3>Contactez-snous !</h3>
+					<h3>Contactez-nous !</h3>
 				  <div class="mb-3">
 				    <label for="exampleInputEmail1" class="form-label">Email address</label>
 				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">

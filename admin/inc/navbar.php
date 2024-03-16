@@ -10,22 +10,12 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0"
           id="navLinks">
         <li class="nav-item">
-          <a class="nav-link" 
-             aria-current="page" 
-             href="index.php">Dashboard</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="teacher.php">Createur de Groupe</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="user.php">Utilisateur</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Registrar-Office</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Message</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="#contact">Parametres</a>
         </li>

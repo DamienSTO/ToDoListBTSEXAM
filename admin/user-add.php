@@ -6,30 +6,15 @@ if (isset($_SESSION['admin_id']) &&
     if ($_SESSION['role'] == 'Admin') {
       
        include "../DB_connection.php";
-       include "data/grade.php";
-       include "data/section.php";
-       $grades = getAllGrades($conn);
-       $sections = getAllSections($conn);
 
 
-       $fname = '';
-       $lname = '';
+
        $uname = '';
-       $address = '';
-       $email = '';
-       $pfn = '';
-       $pln = '';
-       $ppn = '';
 
 
-       if (isset($_GET['fname'])) $fname = $_GET['fname'];
-       if (isset($_GET['lname'])) $lname = $_GET['lname'];
+
        if (isset($_GET['uname'])) $uname = $_GET['uname'];
-       if (isset($_GET['address'])) $address = $_GET['address'];
-       if (isset($_GET['email'])) $email = $_GET['email'];
-       if (isset($_GET['pfn'])) $pfn = $_GET['pfn'];
-       if (isset($_GET['pln'])) $pln = $_GET['pln'];
-       if (isset($_GET['ppn'])) $ppn = $_GET['ppn'];
+      
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,51 +51,6 @@ if (isset($_SESSION['admin_id']) &&
           </div>
         <?php } ?>
         <div class="mb-3">
-          <label class="form-label">First name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$fname?>" 
-                 name="fname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Last name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$lname?>"
-                 name="lname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Address</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$address?>"
-                 name="address">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Email address</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$email?>"
-                 name="email_address">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Date of birth</label>
-          <input type="date" 
-                 class="form-control"
-                 name="date_of_birth">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Gender</label><br>
-          <input type="radio"
-                 value="Male"
-                 checked 
-                 name="gender"> Male
-                 &nbsp;&nbsp;&nbsp;&nbsp;
-          <input type="radio"
-                 value="Female"
-                 name="gender"> Female
-        </div><br><hr>
-        <div class="mb-3">
           <label class="form-label">Username</label>
           <input type="text" 
                  class="form-control"
@@ -130,55 +70,7 @@ if (isset($_SESSION['admin_id']) &&
           </div>
           
         </div><br><hr>
-        <div class="mb-3">
-          <label class="form-label">Parent first name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$pfn?>"
-                 name="parent_fname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parent last name</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$pln?>"
-                 name="parent_lname">
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Parent phone number</label>
-          <input type="text" 
-                 class="form-control"
-                 value="<?=$ppn?>"
-                 name="parent_phone_number">
-        </div><br><hr>
-        <div class="mb-3">
-          <label class="form-label">Grade</label>
-          <div class="row row-cols-5">
-            <?php foreach ($grades as $grade): ?>
-            <div class="col">
-              <input type="radio"
-                     name="grade"
-                     value="<?=$grade['grade_id']?>">
-                     <?=$grade['grade_code']?>-<?=$grade['grade']?>
-            </div>
-            <?php endforeach ?>
-             
-          </div>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Section</label>
-          <div class="row row-cols-5">
-            <?php foreach ($sections as $section): ?>
-            <div class="col">
-              <input type="radio"
-                     name="section"
-                     value="<?=$section['section_id']?>">
-                     <?=$section['section']?>
-            </div>
-            <?php endforeach ?>
-             
-          </div>
-        </div>
+        
 
       <button type="submit" class="btn btn-primary">Register</button>
      </form>
