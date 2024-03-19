@@ -42,7 +42,7 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                         <li class="list-group-item">
                             <strong><?= $group['group_name']; ?></strong>
                             <?php
-                            $todo_query = $conn->prepare("SELECT title,todo_id FROM todos WHERE group_id = ? ORDER BY title ASC");
+                            $todo_query = $conn->prepare("SELECT title,todo_id, checked FROM todos WHERE group_id = ? ORDER BY title ASC");
                             $todo_query->execute([$group['group_id']]);
                             $todos = $todo_query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -51,6 +51,7 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                 <?php foreach ($todos as $todo) : ?>
                                     <li>
                                         <span class="text-muted">Todo:</span> <?= $todo['title']; ?>
+                                        <input type="checkbox" class="check-box" data-todo-id="<?php echo $todo['todo_id']; ?>" <?php echo $todo['checked'] ? 'checked' : ''; ?>>
                                         <button class="remove-to-do" data-todo-id="<?= $todo['todo_id']; ?>">Supprimer</button>
                                     </li>
                                 <?php endforeach; ?>
@@ -85,6 +86,16 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
             }
         });
     });
+    $(".check-box").click(function(){
+                const id = $(this).attr('data-todo-id');
+                const h2 = $(this).next();
+
+                $.post('./endpoint/done.php', { todo_id: id }, function(data){
+                    if (data !== 'error') {
+                        h2.toggleClass('checked', data === '0');
+                    }
+                });
+            });
 });
      
         

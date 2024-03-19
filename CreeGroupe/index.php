@@ -42,7 +42,7 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                     <div class="card-body">
                         <form action="endpoint/add.php" method="POST" autocomplete="off">
                             <div class="input-group mb-3">
-                                <select name="group_id" require>
+                                <select name="group_id"  require>
                                     
                                     <option value="null" disable>Selection un groupe</option>
                                     <?php
@@ -100,6 +100,42 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                                     </div>
                                 <?php } ?>
                             </div>
+                            <h2>Creation de groupe</h2>
+
+                            <select  id="group_id" require>
+                                    
+                                    <option value="null" disable>Selection un groupe</option>
+                                    <?php
+                                    include_once __DIR__ . '/../DB_connection.php';
+
+                          
+                                    if (isset($_SESSION['teacher_id'])) {
+                                        $teacher_id = $_SESSION['teacher_id'];
+                                        
+                                        $sql = "SELECT group_id, group_name FROM groupes WHERE teacher_id = :teacher_id";
+                                        $requete = $conn->prepare($sql);
+                                        $requete->bindParam(':teacher_id', $teacher_id);
+                                        
+                                      
+                                        $requete->execute();
+                                        
+                                       
+                                        if ($requete->rowCount() > 0) {
+                                           
+                                            while ($row = $requete->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<option value='" . $row['group_id'] . "'>" . $row['group_name'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "Aucun groupe trouvé.";
+                                        }
+                                    } else {
+                                        echo "Identifiant de l'enseignant non défini dans la session.";
+                                    }
+
+                                 
+                                    ?>
+
+                                </select>
 
                             <select id='add_user'>
                                 <option value="null" disable>ajouter un utilisateur</option>
@@ -117,8 +153,10 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                                 $conn = null;
                                 ?>
                             </select>
+                            
                             <button id="add-to-do-user">Confirmer</button>
                         </div>
+                        
                         
                         <form action="endpoint/add_group.php" method="POST" autocomplete="off">
                             <h2>Creation de groupe</h2>

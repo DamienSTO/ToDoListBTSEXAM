@@ -13,7 +13,7 @@ if (isset($_SESSION['student_id']) &&
 }
 
 include_once __DIR__ . '/../DB_connection.php';
-$todo_id = $conn->query("SELECT * FROM todos ORDER BY todo_id DESC");
+$todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g.group_id = todos.group_id ORDER BY todo_id DESC LIMIT 2")
 
  ?>
 <!DOCTYPE html>
@@ -37,29 +37,136 @@ $todo_id = $conn->query("SELECT * FROM todos ORDER BY todo_id DESC");
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h2>To-Do List App</h2>
+                        <h2>AchieveGroupsHub</h2>
                     </div>
                     <div class="card-body">
                         <form action="endpoint/add.php" method="POST" autocomplete="off">
                             <div class="input-group mb-3">
+                                <select name="group_id"  require>
+                                    
+                                    <option value="null" disable>Selection un groupe</option>
+                                    <?php
+                                    include_once __DIR__ . '/../DB_connection.php';
+
+                          
+                                    if (isset($_SESSION['student_id'])) {
+                                        $student_id = $_SESSION['student_id'];
+                                        
+                                        $sql = "SELECT group_id, group_name FROM groupes WHERE student_id = :student_id";
+                                        $requete = $conn->prepare($sql);
+                                        $requete->bindParam(':student_id', $student_id);
+                                        
+                                      
+                                        $requete->execute();
+                                        
+                                       
+                                        if ($requete->rowCount() > 0) {
+                                           
+                                            while ($row = $requete->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<option value='" . $row['group_id'] . "'>" . $row['group_name'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "Aucun groupe trouvé.";
+                                        }
+                                    } else {
+                                        echo "Identifiant de l'enseignant non défini dans la session.";
+                                    }
+
+                                 
+                                    ?>
+
+                                </select>
+                                <input type="text" required="true" name="title" class="form-control <?= isset($_GET['mess']) && $_GET['mess'] == 'error' ? 'is-invalid' : '' ?>" placeholder="<?= isset($_GET['mess']) && $_GET['mess'] == 'error' ? 'You must do something! Be Productive!' : 'What do you need to do?' ?>">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
                             </div>
                         </form>
                         
                         <?php if ($todo_id->rowCount() <= 0) { ?>
                             <div class="alert alert-secondary text-center" role="alert">
-                               <h3 class="text-center">No Task for Today!</h3>
+                               <h3 class="text-center">Pas de missions pour aujourd'hui !</h3>
                             </div>
                         <?php } ?>
                         
                         <div class="list-group">
-                            <?php while ($todos = $todo_id->fetch(PDO::FETCH_ASSOC)) { ?>
-                                <div class="list-group-item">
-                                <input type="checkbox" class="check-box" data-todo-id="<?php echo $todos['todo_id']; ?>" <?php echo $todos['checked'] ? 'checked' : ''; ?>>
-                                <h2 <?php echo $todos['checked'] ? 'class="checked"' : ''; ?>><?php echo $todos['title']; ?></h2>
-                                <small class="date-finished">Created: <?php echo $todos['date_time']; ?></small>
-                                </div>
-                            <?php } ?>
+                                <?php while ($todos = $todo_id->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    <div class="list-group-item">
+                                        <button id="<?= $todos['todo_id']; ?>" class="remove-to-do">supprimer</button>
+                                        <input type="checkbox" class="check-box" data-todo-id="<?php echo $todos['todo_id']; ?>" <?php echo $todos['checked'] ? 'checked' : ''; ?>>
+                                        <h2 <?php echo $todos['checked'] ? 'class="checked"' : ''; ?>><?php echo $todos['title']; ?></h2>
+                                        <h5 >Created by <?php echo $todos['group_name']; ?></h5>
+                                        <small class="date-finished">Created: <?php echo $todos['date_time']; ?></small>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                            <h2>Creation de groupe</h2>
+
+                            <select  id="group_id" require>
+                                    
+                                    <option value="null" disable>Selection un groupe</option>
+                                    <?php
+                                    include_once __DIR__ . '/../DB_connection.php';
+
+                          
+                                    if (isset($_SESSION['student_id'])) {
+                                        $student_id = $_SESSION['student_id'];
+                                        
+                                        $sql = "SELECT group_id, group_name FROM groupes WHERE student_id = :student_id";
+                                        $requete = $conn->prepare($sql);
+                                        $requete->bindParam(':student_id', $student_id);
+                                        
+                                      
+                                        $requete->execute();
+                                        
+                                       
+                                        if ($requete->rowCount() > 0) {
+                                           
+                                            while ($row = $requete->fetch(PDO::FETCH_ASSOC)) {
+                                                echo "<option value='" . $row['group_id'] . "'>" . $row['group_name'] . "</option>";
+                                            }
+                                        } else {
+                                            echo "Aucun groupe trouvé.";
+                                        }
+                                    } else {
+                                        echo "Identifiant de l'enseignant non défini dans la session.";
+                                    }
+
+                                 
+                                    ?>
+
+                                </select>
+
+                            <select id='add_user'>
+                                <option value="null" disable>ajouter un utilisateur</option>
+                                <?php
+                                include_once __DIR__ . '/../DB_connection.php';
+                                $requete = "SELECT student_id, username FROM students";
+                                $resultat = $conn->query($requete);
+
+                                if ($resultat->rowCount() > 0) {
+                                    while ($row = $resultat->fetch(PDO::FETCH_ASSOC)) {
+                                        echo "<option value='" . $row['student_id'] . "'>" . $row['username'] . "</option>";
+                                    }
+                                }
+
+                                $conn = null;
+                                ?>
+                            </select>
+                            
+                            <button id="add-to-do-user">Confirmer</button>
                         </div>
+                        
+                        
+                        <form action="endpoint/add_group.php" method="POST" autocomplete="off">
+                            <h2>Creation de groupe</h2>
+                            <div class="input-group mb-3">
+                                <input type="text" required="true" name="group_name" class="form-control" placeholder='Nom du groupe'>
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-primary">Add</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -102,6 +209,33 @@ $todo_id = $conn->query("SELECT * FROM todos ORDER BY todo_id DESC");
                     }
                 });
             })
+            $('#add-to-do-user').click(function(){
+                var student_id = $('#add_user').val();
+                var group_id = $('#group_id').val(); 
+
+                $.ajax({
+                    url: './endpoint/add_user_to_group.php',
+                    method: 'POST',
+                    data: { student_id: student_id, group_id: group_id },
+                    success: function(response){
+                     
+                        if (response === 'success') {
+                        
+                            alert('Utilisateur ajouté au groupe avec succès!');
+                        
+                            window.location.reload(); 
+                        } else {
+                        
+                            alert('Erreur lors de l\'ajout de l\'utilisateur au groupe.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                       
+                        console.error(xhr.responseText);
+                        alert('Une erreur s\'est produite lors de la communication avec le serveur.');
+                    }
+                });
+            });
         });
     </script>
      <div class="container mt-5">

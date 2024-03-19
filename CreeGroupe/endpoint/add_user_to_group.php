@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id']) && isse
         echo "error";
     } else {
         $stmt = $conn->prepare("INSERT INTO user_groupe (group_id, student_id) VALUES (?, ?)");
-        $res = $stmt->execute([$group_id, $user_id]);
+        $res = $stmt->execute([$group_id, $student_id]);
 
         if($res) {
             echo "success";

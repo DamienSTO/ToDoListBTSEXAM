@@ -14,7 +14,7 @@
              aria-current="page" 
              href="index.php">Dashboard</a>
         <li class="nav-item">
-          <a class="nav-link" href="#contact">Parametres</a>
+          <a class="nav-link" href="groups.php">Groupes</a>
         </li>
       </ul>
       <ul class="navbar-nav me-right mb-2 mb-lg-0">
