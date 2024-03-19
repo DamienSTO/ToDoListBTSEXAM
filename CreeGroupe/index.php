@@ -70,7 +70,7 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                                         }
                                     } else {
                                         echo "Identifiant de l'enseignant non défini dans la session.";
-                                    }§§
+                                    }
 
                                  
                                     ?>
@@ -171,6 +171,33 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                     }
                 });
             })
+            $('#add-to-do-user').click(function(){
+                var student_id = $('#add_user').val();
+                var group_id = $('#group_id').val(); 
+
+                $.ajax({
+                    url: './endpoint/add_user_to_group.php',
+                    method: 'POST',
+                    data: { student_id: student_id, group_id: group_id },
+                    success: function(response){
+                     
+                        if (response === 'success') {
+                        
+                            alert('Utilisateur ajouté au groupe avec succès!');
+                        
+                            window.location.reload(); 
+                        } else {
+                        
+                            alert('Erreur lors de l\'ajout de l\'utilisateur au groupe.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                       
+                        console.error(xhr.responseText);
+                        alert('Une erreur s\'est produite lors de la communication avec le serveur.');
+                    }
+                });
+            });
         });
     </script>
      <div class="container mt-5">

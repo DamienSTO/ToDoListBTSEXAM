@@ -159,11 +159,11 @@ if (isset($_SESSION['admin_id']) &&
 <?php 
 
   }else {
-    header("Location: student.php");
+    header("Location: user.php");
     exit;
   } 
 }else {
-  header("Location: student.php");
+  header("Location: user.php");
   exit;
 } 
 
