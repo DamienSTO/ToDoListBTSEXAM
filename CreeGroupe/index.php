@@ -100,7 +100,7 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                                     </div>
                                 <?php } ?>
                             </div>
-                            <h2>Creation de groupe</h2>
+                            <h2>Invitation de groupe</h2>
 
                             <select  id="group_id" require>
                                     
@@ -159,14 +159,15 @@ $todo_id = $conn->query("SELECT *,g.group_name FROM todos JOIN groupes as g on g
                         
                         
                         <form action="endpoint/add_group.php" method="POST" autocomplete="off">
-                            <h2>Creation de groupe</h2>
+                            <h2>Création de groupe</h2>
                             <div class="input-group mb-3">
-                                <input type="text" required="true" name="group_name" class="form-control" placeholder='Nom du groupe'>
+                                <input type="text" required="true" name="group_name" class="form-control" placeholder="Nom du groupe">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">Add</button>
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>

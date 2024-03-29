@@ -66,6 +66,14 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                 
                             <?php endif; ?>
                             <br>
+                            <?php if ($_SESSION['role'] == 'Student') : ?>
+                                <form method="post" action="leave_group.php">
+                                    <input type="hidden" name="group_id" value="<?= $group['group_id']; ?>">
+                                    <button type="submit" class="btn btn-danger btn-sm float-end">Quitter le groupe</button>
+                                </form>
+                            <?php endif; ?>
+                            
+                           
                             
                             <a href="group_details.php?group_id=<?= $group['group_id']; ?>">
                                 Voir les détails du groupe

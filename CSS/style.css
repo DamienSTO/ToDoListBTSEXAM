@@ -105,3 +105,27 @@ textarea {
   height: 1px;
   background: #eee;
 }
+
+.a_in_todo {
+  margin-top: 20px; /* Espacement supplémentaire en haut */
+}
+
+.a_in_todo .list-group-item {
+  margin-bottom: 10px; /* Espacement entre chaque tâche individuelle */
+  padding: 10px; /* Remplissage intérieur */
+  border: 1px solid #ccc; /* Bordure */
+  border-radius: 5px; /* Coins arrondis */
+}
+
+.a_in_todo .list-group-item h2 {
+  margin: 0; /* Supprimer les marges autour du titre */
+}
+
+.a_in_todo .list-group-item input[type="checkbox"] {
+  margin-right: 10px; /* Espacement à droite du bouton de case à cocher */
+}
+
+.a_in_todo .list-group-item.checked {
+  text-decoration: line-through; /* Barrer le texte des tâches cochées */
+  color: #888; /* Couleur de texte plus claire pour les tâches cochées */
+}
