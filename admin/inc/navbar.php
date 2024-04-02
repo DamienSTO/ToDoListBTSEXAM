@@ -15,10 +15,6 @@
         <li class="nav-item">
           <a class="nav-link" href="user.php">Utilisateur</a>
         </li>
-
-        <li class="nav-item">
-          <a class="nav-link" href="#contact">Parametres</a>
-        </li>
       </ul>
       <ul class="navbar-nav me-right mb-2 mb-lg-0">
         <li class="nav-item">

@@ -6,7 +6,7 @@ if (isset($_POST['title'])) {
 
     $title = $_POST['title'];
     $checked = $_POST['checked'];
-    $student_id = $_SESSION['student_id'];
+    $user_id = $_SESSION['user_id'];
 
     if (empty($title)) {
         header("Location: ../index.php?mess=error");
@@ -17,8 +17,8 @@ if (isset($_POST['title'])) {
 
         if ($res) {
             $todo_in_id = $conn->lastInsertId();
-            $stmt = $conn->prepare("INSERT INTO user_todo_in (student_id, todo_in_id) VALUES (?, ?)");
-            $stmt->execute([$student_id, $todo_in_id]);
+            $stmt = $conn->prepare("INSERT INTO user_todo_in (user_id, todo_in_id) VALUES (?, ?)");
+            $stmt->execute([$user_id, $todo_in_id]);
             header("Location: ../index.php?mess=success");
             exit();
         } else {

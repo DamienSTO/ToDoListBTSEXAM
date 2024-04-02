@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -37,10 +37,10 @@ if (
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
         $sql  = "INSERT INTO
-                 teachers(username, password )
-                 VALUES(?,?)";
+                 user(username, password, role )
+                 VALUES(?,?,2)";
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$uname, $pass]);
+        $stmt->execute([$uname, $pass ]);
         $sm = "New teacher registered successfully";
         header("Location: ../teacher-add.php?success=$sm");
         exit;

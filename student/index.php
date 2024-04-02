@@ -1,34 +1,42 @@
 <?php 
 session_start();
 
-// Vérifiez si l'utilisateur est connecté
-if (!isset($_SESSION['student_id'])) {
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 3) {
+    
+
+}  
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $user_id = 0; 
     header("Location: ../login.php");
-    exit;
+    exit; 
 }
 
 include_once __DIR__ . '/../DB_connection.php';
 
-// Récupérez l'ID de l'étudiant connecté
-$student_id = $_SESSION['student_id'];
 
-// Traitement du formulaire pour créer une nouvelle tâche individuelle
+$user_id = $_SESSION['user_id'];
+
+
 if (isset($_POST['title'])) {
     $title = $_POST['title'];
 
 
 }
 
-// Récupérez les tâches assignées à l'étudiant actuellement connecté
+
 $todo_id = $conn->prepare("SELECT todos.*, groupes.group_name FROM todos 
                            JOIN groupes ON groupes.group_id = todos.group_id 
                            JOIN user_groupe ON user_groupe.group_id = groupes.group_id
-                           WHERE user_groupe.student_id = :student_id 
+                           WHERE user_groupe.user_id  = :user_id 
                            ORDER BY todo_id DESC LIMIT 2");
 
 $todo_id_in = $conn->prepare("SELECT todo_in_id, title, checked FROM todos_in ");
 
-$todo_id->bindParam(':student_id', $student_id);
+$todo_id->bindParam(':user_id', $user_id);
 
 
 $todo_id->execute();

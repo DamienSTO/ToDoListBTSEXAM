@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -9,7 +9,7 @@ if (isset($_SESSION['admin_id']) &&
 if (isset($_POST['admin_pass']) &&
     isset($_POST['new_pass'])   &&
     isset($_POST['c_new_pass']) &&
-    isset($_POST['teacher_id'])) {
+    isset($_POST['user_id'])) {
     
     include '../../DB_connection.php';
     include "../data/teacher.php";
@@ -19,10 +19,10 @@ if (isset($_POST['admin_pass']) &&
     $new_pass = $_POST['new_pass'];
     $c_new_pass = $_POST['c_new_pass'];
 
-    $teacher_id = $_POST['teacher_id'];
-    $id = $_SESSION['admin_id'];
+    $user_id = $_POST['user_id'];
+    $id = $_SESSION['user_id'];
     
-    $data = 'teacher_id='.$teacher_id.'#change_password';
+    $data = 'user_id='.$user_id.'#change_password';
 
     if (empty($admin_pass)) {
         $em  = "Admin password is required";
@@ -45,15 +45,15 @@ if (isset($_POST['admin_pass']) &&
         header("Location: ../teacher-edit.php?perror=$em&$data");
         exit;
     }else {
-        // hashing the password
+        
         $new_pass = password_hash($new_pass, PASSWORD_DEFAULT);
 
-        $sql = "UPDATE teachers SET
+        $sql = "UPDATE user SET
                 password = ?
-                WHERE teacher_id=?";
+                WHERE role =2 AND user_id=?";
 
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$new_pass, $teacher_id]);
+        $stmt->execute([$new_pass, $user_id]);
         $sm = "The password has been changed successfully!";
         header("Location: ../teacher-edit.php?psuccess=$sm&$data");
         exit;

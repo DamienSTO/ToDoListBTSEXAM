@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -33,9 +33,9 @@ if (isset($_SESSION['admin_id']) &&
      ?>
      <div class="container mt-5">
         <a href="teacher.php"
-           class="btn btn-dark">Go Back</a>
-
-        <form method="post"
+           class="btn btn-dark">Go Back</a> 
+      
+        <form method="post" 
               class="shadow p-3 mt-5 form-w" 
               action="req/teacher-add.php">
         <h3>Add New Teacher</h3><hr>

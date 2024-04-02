@@ -6,13 +6,10 @@ if (isset($_SESSION['admin_id']) &&
     if ($_SESSION['role'] == 'Admin') {
        include "../DB_connection.php";
        include "data/teacher.php";
-       include "data/subject.php";
-       include "data/grade.php";
-       include "data/section.php";
 
-       if(isset($_GET['teacher_id'])){
+       if(isset($_GET['user_id'])){
 
-       $teacher_id = $_GET['teacher_id'];
+       $teacher_id = $_GET['user_id'];
 
        $teacher = getTeacherById($teacher_id,$conn);    
  ?>

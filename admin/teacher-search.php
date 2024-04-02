@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -78,13 +78,12 @@ if (isset($_SESSION['admin_id']) &&
                     $i++;  ?>
                   <tr>
                     <th scope="row"><?=$i?></th>
-                    <td><?=$teacher['teacher_id']?></td>
-                    <td><a href="teacher-view.php?teacher_id=<?=$teacher['teacher_id']?>">
+                    <td><?=$teacher['user_id']?></td>
                     <td><?=$teacher['username']?></td>
                     <td>
-                        <a href="teacher-edit.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="teacher-edit.php?user_id=<?=$teacher['user_id']?>"
                            class="btn btn-warning">Edit</a>
-                        <a href="teacher-delete.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="teacher-delete.php?user_id=<?=$teacher['user_id']?>"
                            class="btn btn-danger">Delete</a>
                     </td>
                   </tr>

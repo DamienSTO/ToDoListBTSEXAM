@@ -87,28 +87,25 @@
 			</form>
 
 			<?php
-			include_once __DIR__ . '/DB_connection.php'; // Assurez-vous que le chemin est correct
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				$username = $_POST['uname'];
-				$password = $_POST['pass'];
-				$role = $_POST['role'];
+				include_once __DIR__ . '/DB_connection.php';
 
-				// Hasher le mot de passe
-				$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+				if ($_SERVER["REQUEST_METHOD"] == "POST") {
+					$username = $_POST['uname'];
+					$password = $_POST['pass'];
+					$role = $_POST['role'];
 
-				if ($role == 2) {
-					// Si le rôle est 2 (enseignant), insérer dans la table teachers
-					$stmt = $conn->prepare("INSERT INTO teachers (username, password) VALUES (?, ?)");
-				} else {
-					// Sinon, insérer dans la table students
-					$stmt = $conn->prepare("INSERT INTO students (username, password) VALUES (?, ?)");
+					
+					$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+					
+					$stmt = $conn->prepare("INSERT INTO user (username, password, role) VALUES (?, ?, ?)");
+					$stmt->execute([$username, $hashed_password, $role]);
+
+					
+					echo '<script>alert("Enregistrement réussi !");</script>';
 				}
-				$stmt->execute([$username, $hashed_password]);
+				?>
 
-				// Rediriger l'utilisateur vers une page de confirmation ou une autre page appropriée
-				echo '<script>alert("Enregistrement réussi !");</script>';
-			}
-			?>
 		</section>
 		<section id="contact"
 				class="d-flex justify-content-center align-items-center flex-column">

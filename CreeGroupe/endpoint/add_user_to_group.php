@@ -1,27 +1,28 @@
 <?php
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id']) && isset($_POST['group_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id']) && isset($_POST['group_id'])) {
     include_once __DIR__ . '/../../DB_connection.php';
 
-    $student_id = $_POST['student_id'];
+    $user_id = $_POST['user_id'];
     $group_id = $_POST['group_id'];
-
-    if(empty($student_id) || empty($group_id)) {
-        echo "error";
+    
+    if(empty($user_id) || empty($group_id)) {
+        echo "error: Les identifiants d'utilisateur ou de groupe sont manquants.";
     } else {
-        $stmt = $conn->prepare("INSERT INTO user_groupe (group_id, student_id) VALUES (?, ?)");
-        $res = $stmt->execute([$group_id, $student_id]);
-
+        $stmt = $conn->prepare("INSERT INTO user_groupe (group_id, user_id) VALUES (?, ?)");
+        $res = $stmt->execute([$group_id, $user_id]);
+        
         if($res) {
-            echo "success";
+            echo "success: Utilisateur ajouté au groupe avec succès!";
         } else {    
-            echo "error";
+            echo "error: Une erreur s'est produite lors de l'ajout de l'utilisateur au groupe.";
         }
-        $conn = null;
+        
         exit();
     }
 } else {
-    echo "error";
+    echo "error: Requête invalide ou données manquantes.";
+    
 }
 ?>

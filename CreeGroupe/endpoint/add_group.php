@@ -12,14 +12,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   
     $group_name = $_POST['group_name'];
-    $teacher_id = $_SESSION['teacher_id'];
+    $teacher_id = $_SESSION['user_id'];
+    $objet = $_POST['objet'];
 
-    $stmt = $conn->prepare("INSERT INTO groupes (group_name, teacher_id) VALUES (:group_name, :teacher_id)");
+    $stmt = $conn->prepare("INSERT INTO groupes (group_name, user_id, objet) VALUES (:group_name, :user_id, :objet)");
     $stmt->bindParam(':group_name', $group_name);
-    $stmt->bindParam(':teacher_id', $teacher_id);
+    $stmt->bindParam(':user_id', $teacher_id);
+    $stmt->bindParam(':objet', $objet);
 
     if ($stmt->execute()) {
-        header("Location: ../index.php");
+        header("Location: ../index.php"); 
         exit;
     } else {
         echo "Une erreur s'est produite. Veuillez réessayer plus tard.";

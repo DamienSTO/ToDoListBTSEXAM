@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (isset($_SESSION['student_id']) && isset($_SESSION['role'])) {
+if (isset($_SESSION['user_id']) && isset($_SESSION['role'])) {
     if (!$_SESSION['role'] == 'Student') {
         header("Location: ../login.php");
         exit;
@@ -13,14 +13,14 @@ if (isset($_SESSION['student_id']) && isset($_SESSION['role'])) {
 include_once __DIR__ . '/../DB_connection.php';
 
 
-$student_id = $_SESSION['student_id'];
+$user_id = $_SESSION['user_id'];
 $group_query = $conn->prepare(
     "SELECT groupes.group_id, groupes.group_name 
     FROM groupes 
     JOIN user_groupe ON groupes.group_id = user_groupe.group_id 
-    WHERE  user_groupe.student_id = ?  
+    WHERE  user_groupe.user_id = ?  
     ORDER BY groupes.group_name ASC");
-$group_query->execute([$student_id]);
+$group_query->execute([$user_id]);
 $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -72,13 +72,43 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                     <button type="submit" class="btn btn-danger btn-sm float-end">Quitter le groupe</button>
                                 </form>
                             <?php endif; ?>
-                            
+                            <?php foreach ($groups as $group) : ?>
+                                    <?php
+                                   
+                                    $todo_query = $conn->prepare("SELECT title, todo_id, checked FROM todos WHERE group_id = ? ORDER BY title ASC");
+                                    $todo_query->execute([$group['group_id']]);
+                                    $todos = $todo_query->fetchAll(PDO::FETCH_ASSOC);
+                                    
+                                    
+                                    $total_todos = count($todos);
+                                    $completed_todos = 0;
+                                    foreach ($todos as $todo) {
+                                        if ($todo['checked']) {
+                                            $completed_todos++;
+                                        }else{}
+                                    }
+                                    
+                                    
+                                    $percentage = $total_todos > 0 ? ($completed_todos / $total_todos) * 100 : 0;
+                                    $percentage = round($percentage); 
+                                    ?>
+                                    
+                                        
+                                        <?php if ($total_todos > 0) : ?>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: <?= $percentage ?>%;" aria-valuenow="<?= $percentage ?>" aria-valuemin="0" aria-valuemax="100"><?= $percentage ?>%</div>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                    
+                                    
+                                <?php endforeach; ?>
                            
                             
-                            <a href="group_details.php?group_id=<?= $group['group_id']; ?>">
+                            <a href="/toDoList/CreeGroupe/group_details.php?group_id=<?= $group['group_id']; ?>">
                                 Voir les détails du groupe
                             </a>
-                            
+                                            
                         </li>
                     <?php endforeach; ?>
                 </ul>

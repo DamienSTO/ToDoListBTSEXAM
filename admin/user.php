@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -23,7 +23,7 @@ if (isset($_SESSION['admin_id']) &&
 <body>
     <?php 
         include "inc/navbar.php";
-        if ($students != 0) {
+        if ($students !=0) {
      ?>
      <div class="container mt-5">
         <a href="user-add.php"
@@ -68,19 +68,19 @@ if (isset($_SESSION['admin_id']) &&
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i = 0; foreach ($students as $student ) { 
+                <?php $i = 0; foreach ($students as $u ) { 
                     $i++;  ?>
-                  <tr>
-                    <th scope="row"><?=$i?></th>
-                    <td><?=$student['student_id']?></td>
-                    <td><?=$student['username']?></td>
-                    <td>
-                        <a href="user-edit.php?student_id=<?=$student['student_id']?>"
-                           class="btn btn-warning">Edit</a>
-                        <a href="user-delete.php?student_id=<?=$student['student_id']?>"
-                           class="btn btn-danger">Delete</a>
-                    </td>
-                  </tr>
+                    <tr>
+                        <th scope="row"><?=$i?></th>
+                        <td><?=$u['user_id']?></td>
+                        <td><?=$u['username']?></td>
+                        <td>
+                            <a href="user-edit.php?user_id=<?=$u['user_id']?>"
+                              class="btn btn-warning">Edit</a>
+                            <a href="user-delete.php?user_id=<?=$u['user_id']?>"
+                              class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
                 <?php } ?>
                 </tbody>
               </table>
@@ -98,6 +98,7 @@ if (isset($_SESSION['admin_id']) &&
         $(document).ready(function(){
              $("#navLinks li:nth-child(3) a").addClass('active');
         });
+        
     </script>
 
 </body>

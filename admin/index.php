@@ -1,9 +1,17 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
-    isset($_SESSION['role'])) {
+if (!isset($_SESSION['role']) || $_SESSION['role'] != 1) {
+    
 
-    if ($_SESSION['role'] == 'Admin') {
+}  
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+} else {
+    $user_id = 0; 
+    header("Location: ../login.php");
+    exit; 
+}
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,15 +64,3 @@ if (isset($_SESSION['admin_id']) &&
 
 </body>
 </html>
-<?php 
-
-  }else {
-    header("Location: ../login.php");
-    exit;
-  } 
-}else {
-	header("Location: ../login.php");
-	exit;
-} 
-
-?>

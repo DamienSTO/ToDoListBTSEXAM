@@ -1,18 +1,18 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])     &&
-    isset($_GET['student_id'])) {
+    isset($_GET['user_id'])) {
 
     if ($_SESSION['role'] == 'Admin') {
       
        include "../DB_connection.php";
        include "data/user.php";
        
-       $student_id = $_GET['student_id'];
-       $student = getStudentById($student_id, $conn);
+       $teacher_id = $_GET['user_id'];
+       $teacher = getStudentById($teacher_id, $conn);
 
-       if ($student == 0) {
+       if ($teacher == 0) {
          header("Location: user.php");
          exit;
        }
@@ -24,7 +24,7 @@ if (isset($_SESSION['admin_id']) &&
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - Edit student</title>
+  <title>Admin - Edit Teacher</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../css/style.css">
   <link rel="icon" href="../logo.png">
@@ -42,7 +42,7 @@ if (isset($_SESSION['admin_id']) &&
         <form method="post"
               class="shadow p-3 mt-5 form-w" 
               action="req/student-edit.php">
-        <h3>Edit student</h3><hr>
+        <h3>Edit Teacher</h3><hr>
         <?php if (isset($_GET['error'])) { ?>
           <div class="alert alert-danger" role="alert">
            <?=$_GET['error']?>
@@ -57,12 +57,12 @@ if (isset($_SESSION['admin_id']) &&
           <label class="form-label">Username</label>
           <input type="text" 
                  class="form-control"
-                 value="<?=$student['username']?>"
+                 value="<?=$teacher['username']?>"
                  name="username">
         </div>
         <input type="text"
-                value="<?=$student['student_id']?>"
-                name="student_id"
+                value="<?=$teacher['user_id']?>"
+                name="user_id"
                 hidden>
 
         <div class="mb-3">
@@ -74,7 +74,7 @@ if (isset($_SESSION['admin_id']) &&
 
      <form method="post"
               class="shadow p-3 my-5 form-w" 
-              action="req/student-change.php"
+              action="req/teacher-change.php"
               id="change_password">
         <h3>Change Password</h3><hr>
           <?php if (isset($_GET['perror'])) { ?>
@@ -109,8 +109,8 @@ if (isset($_SESSION['admin_id']) &&
             
           </div>
           <input type="text"
-                value="<?=$student['student_id']?>"
-                name="student_id"
+                value="<?=$teacher['user_id']?>"
+                name="user_id"
                 hidden>
 
           <div class="mb-3">

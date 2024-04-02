@@ -9,7 +9,7 @@ if(isset($_POST['todo_id'])){
        echo 'error';
        exit();
     } else {
-        // Utilisation d'une requête préparée pour éviter les attaques par injection SQL
+
         $todos = $conn->prepare("SELECT todo_id, checked FROM todos WHERE todo_id=?");
         $todos->execute([$id]);
 
@@ -17,10 +17,10 @@ if(isset($_POST['todo_id'])){
         $uId = $todo['todo_id'];
         $checked = $todo['checked'];
 
-        // Inversion de l'état de la case à cocher
+
         $uChecked = $checked ? 0 : 1;
 
-        // Utilisation d'une requête préparée pour éviter les attaques par injection SQL
+    
         $res = $conn->prepare("UPDATE todos SET checked=? WHERE todo_id=?");
         $res->execute([$uChecked, $uId]);
 

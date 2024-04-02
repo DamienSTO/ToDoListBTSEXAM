@@ -40,15 +40,6 @@
 		    	class="form-control" 
 		    	name="pass">
 		  </div>
-		   <div class="mb-3">
-		    <label class="form-label">Connecter en tant que :</label>
-		    <select class="form-control" 
-		    		name="role">
-		    	<option value="1">Admin</option>
-		    	<option value="3">Invité</option>
-		    	<option value="2">Créateur de tâches</option>
-		    </select>
-		  </div>
 
 		  <button type="submit" class="btn btn-primary">Se connecter</button>
 		  <a href="index.php" class="text-decoration-none">Home</a>

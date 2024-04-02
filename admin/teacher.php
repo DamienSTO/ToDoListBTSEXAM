@@ -1,13 +1,12 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
        include "../DB_connection.php";
        include "data/teacher.php";
-       include "data/subject.php";
-       include "data/grade.php";
+
        $teachers = getAllTeachers($conn);
  ?>
 <!DOCTYPE html>
@@ -75,12 +74,12 @@ if (isset($_SESSION['admin_id']) &&
                     $i++;  ?>
                   <tr>
                     <th scope="row"><?=$i?></th>
-                    <td><?=$teacher['teacher_id']?></td>
+                    <td><?=$teacher['user_id']?></td>
                     <td><?=$teacher['username']?></td>
                     <td>
-                        <a href="teacher-edit.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="teacher-edit.php?user_id=<?=$teacher['user_id']?>"
                            class="btn btn-warning">Edit</a>
-                        <a href="teacher-delete.php?teacher_id=<?=$teacher['teacher_id']?>"
+                        <a href="teacher-delete.php?user_id=<?=$teacher['user_id']?>"
                            class="btn btn-danger">Delete</a>
                     </td>
                   </tr>
@@ -88,7 +87,7 @@ if (isset($_SESSION['admin_id']) &&
                 </tbody>
               </table>
            </div>
-         <?php }else{ ?>
+           <?php }else{ ?>
              <div class="alert alert-info .w-450 m-5" 
                   role="alert">
                 Empty!

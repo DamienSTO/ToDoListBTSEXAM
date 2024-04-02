@@ -1,8 +1,8 @@
 <?php 
 
-// All Students 
+
 function getAllStudents($conn){
-   $sql = "SELECT * FROM students";
+   $sql = "SELECT * FROM user WHERE role = 3";
    $stmt = $conn->prepare($sql);
    $stmt->execute();
 
@@ -14,10 +14,10 @@ function getAllStudents($conn){
    }
 }
 
-// DELETE
+
 function removeStudent($id, $conn){
-   $sql  = "DELETE FROM students
-           WHERE student_id=?";
+   $sql  = "DELETE FROM user
+           WHERE user_id=?";
    $stmt = $conn->prepare($sql);
    $re   = $stmt->execute([$id]);
    if ($re) {
@@ -27,16 +27,16 @@ function removeStudent($id, $conn){
    }
 }
 
-// Get Student By Id 
+
 function getStudentById($id, $conn){
-   $sql = "SELECT * FROM students
-           WHERE student_id=?";
+   $sql = "SELECT * FROM user
+           WHERE user_id=?";
    $stmt = $conn->prepare($sql);
    $stmt->execute([$id]);
 
    if ($stmt->rowCount() == 1) {
-     $student = $stmt->fetch();
-     return $student;
+     $user = $stmt->fetch();
+     return $user;
    }else {
     return 0;
    }
@@ -44,13 +44,13 @@ function getStudentById($id, $conn){
 
 
 // Check if the username Unique
-function unameIsUnique($uname, $conn, $student_id=0){
-   $sql = "SELECT username, student_id FROM students
+function unameIsUnique($uname, $conn, $user_id=0){
+   $sql = "SELECT username, user_id FROM user
            WHERE username=?";
    $stmt = $conn->prepare($sql);
    $stmt->execute([$uname]);
    
-   if ($student_id == 0) {
+   if ($user_id == 0) {
      if ($stmt->rowCount() >= 1) {
        return 0;
      }else {
@@ -58,8 +58,8 @@ function unameIsUnique($uname, $conn, $student_id=0){
      }
    }else {
     if ($stmt->rowCount() >= 1) {
-       $student = $stmt->fetch();
-       if ($student['student_id'] == $student_id) {
+       $user = $stmt->fetch();
+       if ($user['user_id'] == $user_id) {
          return 1;
        }else {
         return 0;
@@ -75,9 +75,9 @@ function unameIsUnique($uname, $conn, $student_id=0){
 // Search 
 function searchStudents($key, $conn){
    $key = preg_replace('/(?<!\\\)([%_])/', '\\\$1',$key);
-   $sql = "SELECT * FROM students
-           WHERE student_id LIKE ? 
-           OR username LIKE ?";
+   $sql = "SELECT * FROM user
+           WHERE role !=1 AND user_id =? 
+           OR username =?";
    $stmt = $conn->prepare($sql);
    $stmt->execute([$key, $key]);
 

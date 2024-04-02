@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])) {
 
     if ($_SESSION['role'] == 'Admin') {
@@ -11,7 +11,7 @@ if (
     isset($_POST['pass'])) {
     
     include '../../DB_connection.php';
-    include "../data/teacher.php";
+    include "../data/user.php";
 
     $uname = $_POST['username'];
     $pass = $_POST['pass'];
@@ -33,15 +33,15 @@ if (
         header("Location: ../user-add.php?error=$em&$data");
         exit;
     }else {
-        // hashing the password
+      
         $pass = password_hash($pass, PASSWORD_DEFAULT);
 
         $sql  = "INSERT INTO
-                 teachers(username, password )
-                 VALUES(?,?)";
+                 user(username, password,role)
+                 VALUES(?,?,3)";
         $stmt = $conn->prepare($sql);
         $stmt->execute([$uname, $pass]);
-        $sm = "New teacher registered successfully";
+        $sm = "New user registered successfully";
         header("Location: ../user-add.php?success=$sm");
         exit;
   }

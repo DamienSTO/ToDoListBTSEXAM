@@ -107,25 +107,25 @@ textarea {
 }
 
 .a_in_todo {
-  margin-top: 20px; /* Espacement supplémentaire en haut */
+  margin-top: 20px;
 }
 
 .a_in_todo .list-group-item {
-  margin-bottom: 10px; /* Espacement entre chaque tâche individuelle */
-  padding: 10px; /* Remplissage intérieur */
-  border: 1px solid #ccc; /* Bordure */
-  border-radius: 5px; /* Coins arrondis */
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .a_in_todo .list-group-item h2 {
-  margin: 0; /* Supprimer les marges autour du titre */
+  margin: 0;
 }
 
 .a_in_todo .list-group-item input[type="checkbox"] {
-  margin-right: 10px; /* Espacement à droite du bouton de case à cocher */
+  margin-right: 10px;
 }
 
 .a_in_todo .list-group-item.checked {
-  text-decoration: line-through; /* Barrer le texte des tâches cochées */
-  color: #888; /* Couleur de texte plus claire pour les tâches cochées */
+  text-decoration: line-through;
+  color: #888;
 }

@@ -1,15 +1,15 @@
 <?php 
 session_start();
-if (isset($_SESSION['admin_id']) && 
+if (isset($_SESSION['user_id']) && 
     isset($_SESSION['role'])     &&
-    isset($_GET['teacher_id'])) {
+    isset($_GET['user_id'])) {
 
     if ($_SESSION['role'] == 'Admin') {
       
        include "../DB_connection.php";
        include "data/teacher.php";
        
-       $teacher_id = $_GET['teacher_id'];
+       $teacher_id = $_GET['user_id'];
        $teacher = getTeacherById($teacher_id, $conn);
 
        if ($teacher == 0) {
@@ -61,8 +61,8 @@ if (isset($_SESSION['admin_id']) &&
                  name="username">
         </div>
         <input type="text"
-                value="<?=$teacher['teacher_id']?>"
-                name="teacher_id"
+                value="<?=$teacher['user_id']?>"
+                name="user_id"
                 hidden>
 
         <div class="mb-3">
@@ -109,8 +109,8 @@ if (isset($_SESSION['admin_id']) &&
             
           </div>
           <input type="text"
-                value="<?=$teacher['teacher_id']?>"
-                name="teacher_id"
+                value="<?=$teacher['user_id']?>"
+                name="user_id"
                 hidden>
 
           <div class="mb-3">
