@@ -56,7 +56,6 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                         <span class="text-muted">Todo:</span> <?= $todo['title']; ?>
                                         <input type="checkbox" class="check-box" data-todo-id="<?php echo $todo['todo_id']; ?>" <?php echo $todo['checked'] ? 'checked' : ''; ?>>
                                         <button class="remove-to-do btn btn-warning btn-sm " data-todo-id="<?= $todo['todo_id']; ?>">Supprimer</button>
-                                        
                                     </li>
                                     
                                 <?php endforeach; ?>
@@ -135,14 +134,9 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                     if (data !== 'error') {
                         h2.toggleClass('checked', data === '0');
                     }
+                    location.reload()
                 }); 
             });
-    $('.check-box').change(function() {
-        var totalTodos = $(this).closest('ul').find('.check-box').length;
-        var completedTodos = $(this).closest('ul').find('.check-box:checked').length;
-        var percentage = (completedTodos / totalTodos) * 100;
-        $(this).closest('li').find('.progress-bar').css('width', percentage + '%').attr('aria-valuenow', percentage).text(percentage.toFixed(2) + '%');
-    });
             $(document).ready(function(){
         $('.remove-group').click(function(){
             const groupId = $(this).data('group-id');

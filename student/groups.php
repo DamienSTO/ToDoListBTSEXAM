@@ -143,6 +143,7 @@ $(document).ready(function(){
                     if (data !== 'error') {
                         h2.toggleClass('checked', data === '0');
                     }
+                    location.reload()
                 });
             });
 });
