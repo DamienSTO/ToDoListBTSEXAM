@@ -85,48 +85,55 @@
 				<button type="submit" class="btn btn-primary">S'enregistrer</button>
 				<a href="index.php" class="text-decoration-none">Home</a>
 			</form>
-
 			<?php
 				include_once __DIR__ . '/DB_connection.php';
 
 				if ($_SERVER["REQUEST_METHOD"] == "POST") {
-					$username = $_POST['uname'];
+					$username = $_POST['uname']; 
 					$password = $_POST['pass'];
 					$role = $_POST['role'];
 
-					
-					$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+					// Vérifier si le nom d'utilisateur est déjà pris
+					$stmt_check = $conn->prepare("SELECT COUNT(*) as count FROM user WHERE username = ?");
+					$stmt_check->execute([$username]);
+					$row = $stmt_check->fetch(PDO::FETCH_ASSOC);
 
-					
-					$stmt = $conn->prepare("INSERT INTO user (username, password, role) VALUES (?, ?, ?)");
-					$stmt->execute([$username, $hashed_password, $role]);
+					if ($row['count'] > 0) {
+						// Nom d'utilisateur déjà pris, afficher un message d'erreur
+						echo '<script>alert("Le nom d\'utilisateur est déjà pris. Veuillez en choisir un autre.");</script>';
+					} else {
+						// Nom d'utilisateur disponible, procéder à l'insertion
+						$hashed_password = password_hash($password, PASSWORD_DEFAULT);
+						$stmt_insert = $conn->prepare("INSERT INTO user (username, password, role) VALUES (?, ?, ?)");
+						$stmt_insert->execute([$username, $hashed_password, $role]);
 
-					
-					echo '<script>alert("Enregistrement réussi !");</script>';
+						echo '<script>alert("Enregistrement réussi !");</script>';
+					}
 				}
-				?>
+?>
+
 
 		</section>
-		<section id="contact"
-				class="d-flex justify-content-center align-items-center flex-column">
-				<form>
-					<h3>Contactez-nous !</h3>
-				  <div class="mb-3">
-				    <label for="exampleInputEmail1" class="form-label">Email address</label>
-				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-				    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-				  </div>
-				  <div class="mb-3">
-				    <label  class="form-label">Name</label>
-				    <input type="text" class="form-control">
-				  </div>
-				  <div class="mb-3">
-				    <label  class="form-label">Name</label>
-				    <textarea class="form-control" rows="4"></textarea>
-				  </div>
-				  <button type="submit" class="btn btn-primary">Send</button>
-				</form>
+		<section id="contact" class="d-flex justify-content-center align-items-center flex-column">
+			<form method="post" action="send_email.php">
+				<h3>Contactez-nous !</h3>
+				<div class="mb-3">
+					<label for="exampleInputEmail1" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" required>
+					<div id="emailHelp" class="form-text">Si vous avez besoin d'un renseignement !</div>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Objet</label>
+					<input type="text" class="form-control" name="subject" required>
+				</div>
+				<div class="mb-3">
+					<label class="form-label">Message</label>
+					<textarea class="form-control" rows="4" name="message" required></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary" name="submit">Send</button>
+			</form>
 		</section>
+
 		<div class="text-center text-light">
 			Copyright &copy; 2024 AchieveHub. All rights reserved.
 		</div>

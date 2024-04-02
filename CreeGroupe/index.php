@@ -244,18 +244,6 @@ $(document).ready(function(){
     </script>
      <div class="container mt-5">
          <div class="container text-center">
-
-             <div class="row row-cols-5">
-
-               <a href="" class="col btn btn-primary m-2 py-3 col-5">
-                 <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
-                  Settings
-               </a> 
-               <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5">
-                 <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>
-                  Logout
-               </a> 
-             </div>
          </div>
      </div>
     

@@ -74,7 +74,7 @@ if (isset($_SESSION['user_id']) &&
 
      <form method="post"
               class="shadow p-3 my-5 form-w" 
-              action="req/teacher-change.php"
+              action="req/student-change.php"
               id="change_password">
         <h3>Change Password</h3><hr>
           <?php if (isset($_GET['perror'])) { ?>
