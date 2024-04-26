@@ -35,7 +35,8 @@ $todo_id->execute();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <?php 
+    <div class="card-prin">
+        <?php 
         include "inc/navbar.php";
      ?>
      <div class="container mt-5">
@@ -190,6 +191,22 @@ $todo_id->execute();
                 </div>
             </div>
         </div>
+        <div class="container mt-5">
+                <div class="container text-center">
+
+                    <div class="row row-cols-5">
+
+                    <a href="" class="col btn btn-primary m-2 py-3 col-5">
+                        <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
+                        Settings
+                    </a> 
+                    <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5">
+                        <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>
+                        Logout
+                    </a> 
+                    </div>
+                </div>
+            </div>  
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -225,7 +242,7 @@ $(document).ready(function(){
         $.ajax({
             url: './endpoint/add_user_to_group.php',
             method: 'POST',
-            data: { user_id: user_id, group_id: group_id },
+            data: { user_id: user_id, group_id: group_id }, 
             success: function(response){
                 if (response === 'success') {
                     alert('Utilisateur ajouté au groupe avec succès!'); 
@@ -240,31 +257,15 @@ $(document).ready(function(){
         });
     });
 });
-
-    </script>
-     <div class="container mt-5">
-         <div class="container text-center">
-
-             <div class="row row-cols-5">
-
-               <a href="" class="col btn btn-primary m-2 py-3 col-5">
-                 <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
-                  Settings
-               </a> 
-               <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5">
-                 <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>
-                  Logout
-               </a> 
-             </div>
-         </div>
-     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>	
-    <script>
-        $(document).ready(function(){
-             $("#navLinks li:nth-child(1) a").addClass('active');
-        });
-    </script>
-
+            </script>
+            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    $("#navLinks li:nth-child(1) a").addClass('active');
+                });
+            </script>
+        
 </body>
+
 </html>
