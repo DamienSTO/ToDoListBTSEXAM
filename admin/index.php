@@ -42,11 +42,6 @@ if (isset($_SESSION['user_id'])) {
                  <i class="fa fa-graduation-cap fs-1" aria-hidden="true"></i><br>
                   Utilisateur
                </a> 
-
-               <a href="" class="col btn btn-primary m-2 py-3 col-5">
-                 <i class="fa fa-cogs fs-1" aria-hidden="true"></i><br>
-                  Parametres
-               </a> 
                <a href="../logout.php" class="col btn btn-warning m-2 py-3 col-5">
                  <i class="fa fa-sign-out fs-1" aria-hidden="true"></i><br>
                   Logout

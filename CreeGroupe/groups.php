@@ -60,8 +60,7 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                     
                                 <?php endforeach; ?>
                                 </ul>
-                                <a href="group_details.php?group_id=<?= $group['group_id']; ?>">Voir les détails du groupe <?= $group['group_name']; ?></a>
-                            <button class="remove-group btn btn-danger btn-sm float-end" data-group-id="<?= $group['group_id']; ?>">Supprimer</button>
+                                
                                 <?php foreach ($groups as $group) : ?>
                                     <?php
                                    
@@ -93,6 +92,8 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
                                     
                                     
                                 <?php endforeach; ?>
+                                <a href="group_details.php?group_id=<?= $group['group_id']; ?>">Voir les détails du groupe <?= $group['group_name']; ?></a>
+                            <button class="remove-group btn btn-danger btn-sm float-end" data-group-id="<?= $group['group_id']; ?>">Supprimer</button>  
                                 
                             <?php else : ?>
                                 <span class="text-muted">Aucune Todo associée à ce groupe.</span>
@@ -117,7 +118,7 @@ $groups = $group_query->fetchAll(PDO::FETCH_ASSOC);
 <script>
      $(document).ready(function(){
     $('.remove-to-do').click(function(){
-        const id = $(this).data('todo-id'); // Récupère l'ID à partir de l'attribut data
+        const id = $(this).data('todo-id'); 
         const parent = $(this).parent();
 
         $.post("./endpoint/delete.php", { todo_id: id }, function(data){

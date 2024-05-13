@@ -178,7 +178,7 @@ $todo_id->execute();
                             <div class="input-group mb-3">
                                 <input type="text" required="true" name="group_name" class="form-control" placeholder="Nom du groupe">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    <button type="submit" class="bouton">Ajouter</button>
                                 </div>
                             </div>
                             <div class="input-group mb-3">
@@ -256,7 +256,7 @@ $(document).ready(function(){
             }
         });
     });
-});
+});s
             </script>
             
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -266,6 +266,7 @@ $(document).ready(function(){
                 });
             </script>
         
+
 </body>
 
 </html>

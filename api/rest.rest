@@ -1,0 +1,17 @@
+# Request to login
+POST http://localhost/toDoList/api/login.php
+Content-Type: application/json
+
+{
+    "username": "toms",
+    "password": "dada"
+}
+
+###
+# Request to check token
+POST http://localhost/toDoList/api/check-token.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJpYXQiOjE3MTU2MzMzOTIsImV4cCI6MTcxNTYzNjk5Mn0.PTBEe9HMiq5ILiMdpZ5CW7MXxdDAnXfRklWlLrR6aZg"
+}

@@ -13,9 +13,7 @@
           <a class="nav-link" 
              aria-current="page" 
              href="index.php">Dashboard</a>
-        <li class="nav-item">  
-          <a class="nav-link" href="#contact">Parametres</a>
-        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="groups.php">Groupes</a>
         </li>
