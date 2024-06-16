@@ -20,11 +20,13 @@ $user = getUserByUsername($conn, $username);
 
 if ($user && password_verify($password, $user['password'])) {
     if($user["role"] != 1){
-        http_response_code(400);
+        http_response_code(401);
         echo json_encode(['error' => 'Vous n\'êtes pas adiminstrateur']); 
+        return;
     }
     $payload = [
         'sub' => $user['user_id'],
+        'role'=> $user['role'],
         'iat' => time(),
         'exp' => time() + TOKEN_EXPIRY,
     ];

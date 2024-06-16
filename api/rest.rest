@@ -3,8 +3,8 @@ POST http://localhost/toDoList/api/login.php
 Content-Type: application/json
 
 {
-    "username": "toms",
-    "password": "dada"
+    "username": "jade",
+    "password": "123"
 }
 
 ###
@@ -13,5 +13,77 @@ POST http://localhost/toDoList/api/check-token.php
 Content-Type: application/json
 
 {
-    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJpYXQiOjE3MTU2MzMzOTIsImV4cCI6MTcxNTYzNjk5Mn0.PTBEe9HMiq5ILiMdpZ5CW7MXxdDAnXfRklWlLrR6aZg"
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJpYXQiOjE3MTg1NzU2NDAsImV4cCI6MTcxODU3OTI0MH0.zn8-Vp4s--bxQhrpQJHWTGgKDN76e0UpXV1zTVFhJyo"
+}
+
+###
+# Request to student-add
+POST http://localhost/toDoList/api/admin/student-add.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "username": "tototaob",
+    "password": "tototaob"
+}
+
+###
+# Change student password
+POST http://localhost/toDoList/api/admin/student-change.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "new_pass": "tototo",
+    "c_new_pass": "tototo",
+    "admin_pass": "123",
+    "user_id": "33"
+}
+
+###
+# Edit student 
+POST http://localhost/toDoList/api/admin/student-edit.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "username": "tototo",
+    "user_id": "33"
+}
+
+###
+# teacher-add
+
+POST http://localhost/toDoList/api/admin/teacher-add.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "username": "teacher",
+    "password": "teacher"
+}
+
+###
+# teacher-change
+
+POST http://localhost/toDoList/api/admin/teacher-change.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "new_pass": "teacher",
+    "c_new_pass": "teacher",
+    "admin_pass": "123",
+    "user_id": "34"
+}
+
+###
+# teacher-edit
+POST http://localhost/toDoList/api/admin/teacher-edit.php
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjE4LCJyb2xlIjoxLCJpYXQiOjE3MTg1NzYwNjQsImV4cCI6MTcxODU3OTY2NH0.UZVEHtGTpM4zQcOHttmCOshALBm7THtVGhIftbTKcNE",
+    "username": "teacher1",
+    "user_id": "34"
 }
