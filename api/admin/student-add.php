@@ -10,7 +10,7 @@ $token = $input['token'] ?? '';
 $username = $input['username'] ?? '';
 $password = $input['password'] ?? '';
 
-if (!$token || !$username || !$password) {
+if (empty($token) || empty($username) || empty($password)) {
     http_response_code(400);
     echo json_encode(['error' => 'Token, username, and password are required']);
     exit;

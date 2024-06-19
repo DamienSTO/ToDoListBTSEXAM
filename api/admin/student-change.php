@@ -12,7 +12,7 @@ $new_pass = $input['new_pass'] ?? '';
 $c_new_pass = $input['c_new_pass'] ?? '';
 $user_id = $input['user_id'] ?? '';
 
-if (!$token || !$admin_pass || !$new_pass || !$c_new_pass || !$user_id) {
+if (empty($token) || empty($admin_pass) || empty($new_pass) || empty($c_new_pass) || empty($user_id)) {
     http_response_code(400);
     echo json_encode(['error' => 'All fields (token, admin_pass, new_pass, c_new_pass, user_id) are required']);
     exit;
